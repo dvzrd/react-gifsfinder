@@ -8,6 +8,7 @@ export const RETAIN_SEARCHED_TERM = 'RETAIN_SEARCHED_TERM'
 
 const API_KEY = '&api_key=fZ49TIFdZ3xlMiR4He5XUalG33EubAdx'
 const ROOT_URL = 'http://api.giphy.com/v1/gifs'
+const ITEMS_LIMIT = '&limit=30'
 
 export const setEndpoint = endpoint => ({
   type: SET_ENDPOINT,
@@ -33,7 +34,7 @@ export const receiveGifs = (endpoint, json) => ({
 
 const fetchGifs = endpoint => dispatch => {
   dispatch(requestGifs(endpoint))
-  const url = `${ROOT_URL}${endpoint}${API_KEY}`
+  const url = `${ROOT_URL}${endpoint}${API_KEY}${ITEMS_LIMIT}`
 
   return fetch(url)
     .then(response => response.json())

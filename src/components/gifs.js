@@ -7,7 +7,9 @@ const Gifs = ({gifs}) => (
     <List>
       {gifs.map((gif, index) =>
         <Item key={ index }>
-          <img src={ gif.images.fixed_height_downsampled.url } />
+          <Link href={ gif.url } target='_blank'>
+            <Gif gif={ gif.images.fixed_height.url } />
+          </Link>
         </Item>
       )}
     </List>
@@ -15,16 +17,20 @@ const Gifs = ({gifs}) => (
 )
 
 const Component = styled.section`
-  max-width: 38em;
+  max-width: 40em;
   margin: 0 auto;
   padding: 1em;
 
   @media only screen and (min-width: 48em) {
-    max-width: 48em;
+    max-width: 50em;
   }
 
   @media only screen and (min-width: 62em) {
-    max-width: 58em;
+    max-width: 60em;
+  }
+
+  @media only screen and (min-width: 75em) {
+    max-width: 70em;
   }
 `
 
@@ -42,7 +48,7 @@ const Item = styled.li`
   width: 100%;
   margin: 0;
   padding-left: 1em;
-  padding-bottom: 0.65em;
+  padding-bottom: 1em;
 
   @media only screen and (min-width: 30em) {
     width: 50%;
@@ -50,6 +56,45 @@ const Item = styled.li`
 
   @media only screen and (min-width: 48em) {
     width: 33.3333%;
+  }
+
+  @media only screen and (min-width: 75em) {
+    width: 25%;
+  }
+`
+
+const Link = styled.a`
+  display: block;
+  box-shadow: 0 0 0 0.1em #F2E9E1;
+  background-color: #ddd5cc;
+  text-decoration: none;
+  transition: all 250ms;
+
+  &:hover {
+    box-shadow: 0 0 0.05em 0.15em #CBE86B;
+    transform: scale(1.015);
+  }
+`
+
+const Gif = styled.figure`
+  width: 100%;
+  height: 12em;
+  margin: 0 auto;
+  background-image: url(${props => props.gif});
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+
+  @media only screen and (min-width: 30em) {
+    height: 14em;
+  }
+
+  @media only screen and (min-width: 48em) {
+    height: 12em;
+  }
+
+  @media only screen and (min-width: 62em) {
+    height: 14em;
   }
 `
 

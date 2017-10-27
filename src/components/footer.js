@@ -20,16 +20,20 @@ const Component = styled.footer`
 `
 
 const Section = styled.section`
-  max-width: 38em;
+  max-width: 40em;
   margin: 0 auto;
   padding: 1em;
 
   @media only screen and (min-width: 48em) {
-    max-width: 48em;
+    max-width: 50em;
   }
 
   @media only screen and (min-width: 62em) {
-    max-width: 58em;
+    max-width: 60em;
+  }
+
+  @media only screen and (min-width: 75em) {
+    max-width: 70em;
   }
 `
 

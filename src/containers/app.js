@@ -6,8 +6,8 @@ import styled from 'styled-components'
 import actions, {
   setEndpoint, invalidateEndpoint, retrieveGifs
 } from '../actions'
-import Search from './search'
 import Header from '../components/header'
+import Search from '../components/search'
 import Gifs from '../components/gifs'
 import Terms from '../components/terms'
 import Footer from '../components/footer'
@@ -19,6 +19,12 @@ class App extends Component {
     dispatch: PropTypes.func.isRequired,
     updated: PropTypes.number,
     gifs: PropTypes.array.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = { term: '' }
   }
 
   componentDidMount() {
@@ -34,20 +40,23 @@ class App extends Component {
     }
   }
 
-  // handleSearch = e => {
-  //   e.preventDefault()
-  //
-  //   const { dispatch } = this.props
-  //   // const query = terms.split(' ').join('+')
-  //   const query = 'ryan+gosling'
-  //   const endpoint = `search?q=${query}`
-  //
-  //   // dispatch(retainSearchedTerm(query))
-  //   dispatch(setEndpoint(endpoint))
-  // }
+  handleSearch = event => {
+    event.preventDefault()
 
-  handleTermClick = e => {
-    e.preventDefault()
+    const { dispatch } = this.props
+    const query = this.state.term.split(' ').join('+')
+    const endpoint = `/search?q=${query}`
+
+    // dispatch(retainSearchedTerm(query))
+    dispatch(setEndpoint(endpoint))
+  }
+
+  handleInputChange = value => {
+    this.setState({ term: value })
+  }
+
+  handleTermClick = event => {
+    event.preventDefault()
 
     const { dispatch, endpoint } = this.props
 
@@ -88,8 +97,9 @@ class App extends Component {
     return (
       <Container>
         <Header />
-        <Search />
         <Main>
+          <Search onSearch={ this.handleSearch }
+                  onInputChange={ this.handleInputChange }/>
           { this.renderGifs() }
         </Main>
         <Footer />

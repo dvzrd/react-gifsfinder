@@ -15,9 +15,21 @@ const Terms = ({terms}) => (
 )
 
 const Component = styled.section`
+  max-width: 40em;
   margin: 0 auto;
   padding: 1em;
-  background-color: #dedede;
+
+  @media only screen and (min-width: 48em) {
+    max-width: 50em;
+  }
+
+  @media only screen and (min-width: 62em) {
+    max-width: 60em;
+  }
+
+  @media only screen and (min-width: 75em) {
+    max-width: 70em;
+  }
 `
 
 const List = styled.ul`
