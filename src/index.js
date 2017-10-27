@@ -34,8 +34,8 @@ injectGlobal`
   body {
     margin: 0;
     padding: 0;
-    background-color: #f8f8ff;
-    color: #1C1C1C;
+    background-color: #fff;
+    color: #464441;
     font-family: 'Kanit', 'Open Sans', Arial, sans-serif;
     font-weight: normal;
     line-height: 1.5;
@@ -44,7 +44,7 @@ injectGlobal`
   h1, h2, h3,
   h4, h5, h6 {
     margin: 2em 0 1em;
-    color: #050503;
+    color: #1C140D;
     font-weight: bold;
     line-height: 1;
   }
@@ -59,12 +59,12 @@ injectGlobal`
 
   a {
     position: relative;
-    color: #FC4000;
+    color: #CBE86B;
     transition: all 250ms;
   }
 
   a:hover {
-    color: #E23C03;
+    color: #b8d361;
   }
 
   img {

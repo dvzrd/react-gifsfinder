@@ -2,13 +2,12 @@ export const SET_ENDPOINT = 'SET_ENDPOINT'
 export const INVALIDATE_ENDPOINT = 'INVALIDATE_ENDPOINT'
 export const REQUEST_GIFS = 'REQUEST_GIFS'
 export const RECEIVE_GIFS = 'RECEIVE_GIFS'
-
 export const FETCH_SEARCHED_TERMS = 'FETCH_SEARCHED_TERMS'
 export const FETCH_SEARCHED_TERM = 'FETCH_SEARCHED_TERM'
 export const RETAIN_SEARCHED_TERM = 'RETAIN_SEARCHED_TERM'
 
 const API_KEY = '&api_key=fZ49TIFdZ3xlMiR4He5XUalG33EubAdx'
-const ROOT_URL = `http://api.giphy.com/v1/gifs`
+const ROOT_URL = 'http://api.giphy.com/v1/gifs'
 
 export const setEndpoint = endpoint => ({
   type: SET_ENDPOINT,
