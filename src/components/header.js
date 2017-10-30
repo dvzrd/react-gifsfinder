@@ -1,12 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Header = () => (
+const Header = ({ handleRefresh }) => (
   <Component>
     <Section>
-      <Logo>
-        GIFs Finder
-      </Logo>
+      <Button onClick={ handleRefresh }>
+        <Logo>
+          GIFs Finder
+        </Logo>
+      </Button>
     </Section>
   </Component>
 )
@@ -16,6 +19,7 @@ const Component = styled.header`
   margin: 0 auto;
   padding: 0;
   background-color: #1C140D;
+  z-index: 1;
 `
 const Section = styled.section`
   max-width: 40em;
@@ -37,9 +41,29 @@ const Section = styled.section`
 
 const Logo = styled.h1`
   margin: 0;
-  margin-top: 2em;
   color: #CBE86B;
-  font-size: 2em;
+  font-family: 'Fugaz One', 'Oxygen', Helvetica, Arial, sans-serif;
+  font-size: 3em;
+
+  @media only screen and (min-width: 48em) {
+    margin-top: 1em;
+  }
+
+  @media only screen and (min-width: 62em) {
+    margin-top: 2em;
+    font-size: 4em;
+  }
 `
+
+const Button = styled.button`
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+`
+
+Header.propTypes = {
+  handleRefresh: PropTypes.func.isRequired
+}
 
 export default Header

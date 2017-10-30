@@ -36,7 +36,7 @@ injectGlobal`
     padding: 0;
     background-color: #fff;
     color: #464441;
-    font-family: 'Kanit', 'Open Sans', Arial, sans-serif;
+    font-family: 'Oxygen', 'Open Sans', Helvetica, Arial, sans-serif;
     font-weight: normal;
     line-height: 1.5;
   }

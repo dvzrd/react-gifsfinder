@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Search = ({ onSearch, onInputChange }) => (
+const Search = ({ term, handleSearch, handleInputChange }) => (
   <Container>
-    <Form onSubmit={ event => onSearch(event) }>
+    <Form onSubmit={ event => handleSearch(event, term) }>
       <Input type='text'
              placeholder='Find GIFs in a Jiffy...'
-             onChange={ event => onInputChange(event.target.value) } />
+             value={ term }
+             onChange={ event => handleInputChange(event.target.value) } />
       <Button type='submit'>
         Search
       </Button>
@@ -16,11 +17,19 @@ const Search = ({ onSearch, onInputChange }) => (
 )
 
 const Container = styled.section`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
   width: 100%;
   margin: 0 auto;
   padding: 0;
   border-top: 0.5em solid #b8d361;
   background-color: #CBE86B;
+
+  @media only screen and (min-width: 30em) {
+    position: relative;
+  }
 `
 
 const Form = styled.form`
@@ -49,7 +58,11 @@ const Input = styled.input`
   outline: 0;
   border: 0.05em solid #464441;
   box-shadow: 0.05em 0.05em 0.25em 0 #8c8987 inset;
-  font-size: 1em;
+  font-size: 75%;
+
+  @media only screen and (min-width: 30em) {
+    font-size: 1em;
+  }
 `
 
 const Button = styled.button`
@@ -60,9 +73,13 @@ const Button = styled.button`
   border: 0.05em solid #1C140D;
   background-color: #1C140D;
   color: #fff;
-  font-size: 1em;
+  font-size: 75%;
   text-transform: uppercase;
   transition: all 250ms;
+
+  @media only screen and (min-width: 30em) {
+    font-size: 1em;
+  }
 
   &:hover {
     background-color: #464441;
@@ -70,8 +87,8 @@ const Button = styled.button`
 `
 
 Search.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-  onInputChange: PropTypes.func.isRequired
+  handleSearch: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired
 }
 
 export default Search

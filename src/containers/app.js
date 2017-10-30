@@ -40,14 +40,22 @@ class App extends Component {
     }
   }
 
-  handleSearch = event => {
+  handleRefresh = newEndpoint => {
+    const { dispatch, endpoint } = this.props
+    const trending = '/trending?'
+
+    dispatch(invalidateEndpoint(endpoint))
+    dispatch(setEndpoint(trending))
+  }
+
+  handleSearch = (event, term) => {
     event.preventDefault()
+    this.setState({ term: '' })
 
     const { dispatch } = this.props
-    const query = this.state.term.split(' ').join('+')
+    const query = term.split(' ').join('+')
     const endpoint = `/search?q=${query}`
 
-    // dispatch(retainSearchedTerm(query))
     dispatch(setEndpoint(endpoint))
   }
 
@@ -55,36 +63,51 @@ class App extends Component {
     this.setState({ term: value })
   }
 
-  handleTermClick = event => {
-    event.preventDefault()
-
+  handleTermClick = term => {
     const { dispatch, endpoint } = this.props
-
+    
     dispatch(invalidateEndpoint(endpoint))
-    dispatch(retrieveGifs(endpoint))
+    dispatch(setEndpoint(term))
   }
 
   renderGifs() {
-    const { fetching, gifs } = this.props
+    const { endpoint, fetching, gifs } = this.props
     const empty = gifs.length === 0
+    let headline = endpoint.substring(
+      endpoint.lastIndexOf('/') + 1, 
+      endpoint.lastIndexOf('?')
+    ) 
     let list = null
 
+    if (endpoint.includes('search')) {
+      headline = endpoint.split('=').pop().split('+').join(' ')
+    }
+
+    // @TODO: Loading component
     empty ?
       ( fetching
-        ? list = <Loading>Fetching Gifs</Loading>
-        : list = <Empty>No Gifs Found</Empty>
-      ) : list = <Gifs gifs={ gifs } />
+        ? list = <Message>Loading</Message>
+        : list = <Message>Gifs not found</Message>
+      ) : list = <Gifs headline={headline} gifs={ gifs } />
 
     return list
   }
 
   renderTerms() {
-    const { terms } = this.props
-    const empty = terms.length === 0
+    const { retrieved } = this.props
+    const endpoints = Object.keys(retrieved)
+    const searched = endpoints.length > 1
     let list = null
 
-    if (!empty) {
-      list = <Terms terms={ terms } />
+    if (searched) {
+      const terms = endpoints.map(endpoint => {
+        return Object.assign({}, { 
+          endpoint: endpoint,
+          label: endpoint.split('=').pop().split('+').join(' ')
+        })
+      }).slice(1).reverse()
+
+      list = <Terms terms={ terms } handleTermClick={ this.handleTermClick } />
     }
 
     return list
@@ -96,10 +119,12 @@ class App extends Component {
 
     return (
       <Container>
-        <Header />
+        <Header handleRefresh={ this.handleRefresh } />
         <Main>
-          <Search onSearch={ this.handleSearch }
-                  onInputChange={ this.handleInputChange }/>
+          <Search term={ this.state.term }
+                  handleSearch={ this.handleSearch }
+                  handleInputChange={ this.handleInputChange }/>
+          { this.renderTerms() }
           { this.renderGifs() }
         </Main>
         <Footer />
@@ -121,14 +146,18 @@ const Main = styled.main`
   padding: 0;
 `
 
-const Loading = styled.aside`
+const Message = styled.aside`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
   font-size: 2em;
   text-align: center;
-`
-
-const Empty = styled.aside`
-  font-size: 2em;
-  text-align: center;
+  z-indez: -1;
 `
 
 const mapStateToProps = state => {
@@ -146,7 +175,8 @@ const mapStateToProps = state => {
     endpoint,
     gifs,
     fetching,
-    updated
+    updated,
+    retrieved: gifsByEndpoint
   }
 }
 

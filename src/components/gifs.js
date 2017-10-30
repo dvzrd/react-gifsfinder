@@ -2,8 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Gifs = ({gifs}) => (
+const Gifs = ({ headline, gifs }) => (
   <Component>
+    <Headline>
+      { headline }
+    </Headline>
     <List>
       {gifs.map((gif, index) =>
         <Item key={ index }>
@@ -31,6 +34,53 @@ const Component = styled.section`
 
   @media only screen and (min-width: 75em) {
     max-width: 70em;
+  }
+`
+
+const Headline = styled.h1`
+  display: inline-block;
+  position: relative;
+  margin: 1em 0 0.65em;
+  padding: 0.5em;
+  padding-left: 0;
+  background-color: #cae86b;
+  color: #1c130c;
+  text-transform: uppercase;
+
+  @media only screen and (min-width: 30em) {
+    background-color: #1c130c;
+    color: #fff;
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+  }
+
+  &::before {
+    left: -100vh;
+    width: 100vh;
+    height: 2em;
+    background-color: #cae86b;
+
+    @media only screen and (min-width: 30em) {
+      background-color: #1c130c;
+    }
+  }
+
+  &::after {
+    right: -1.5em;
+    width: 0;
+    height: 0;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-left: 1.5em solid #cae86b;
+
+    @media only screen and (min-width: 30em) {
+      border-left: 1.5em solid #1c130c;
+    }
   }
 `
 
@@ -66,7 +116,7 @@ const Item = styled.li`
 const Link = styled.a`
   display: block;
   box-shadow: 0 0 0 0.1em #F2E9E1;
-  background-color: #ddd5cc;
+  background-color: #F2E9E1;
   text-decoration: none;
   transition: all 250ms;
 

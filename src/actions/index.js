@@ -60,24 +60,3 @@ export const retrieveGifs = endpoint => (dispatch, getState) => {
     return dispatch(fetchGifs(endpoint))
   }
 }
-
-export function fetchSearchedTerms(terms) {
-  return {
-    type: FETCH_SEARCHED_TERMS,
-    payload: terms
-  }
-}
-
-export function fetchSearchedTerm(term) {
-  return {
-    type: FETCH_SEARCHED_TERM,
-    payload: terms
-  }
-}
-
-export function retainSearchedTerm(term) {
-  return {
-    type: RETAIN_SEARCHED_TERM,
-    payload: term
-  }
-}
